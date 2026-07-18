@@ -1,0 +1,59 @@
+// ---- Supabase config ----
+// Replace these with your own project's values (Project Settings -> API).
+// The anon/public key is safe to expose in client-side code — it only has
+// the permissions you grant it via Row Level Security policies.
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+const isConfigured =
+  SUPABASE_URL !== "YOUR_SUPABASE_PROJECT_URL" &&
+  SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
+
+let supabase = null;
+if (isConfigured && window.supabase) {
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+const form = document.getElementById("booking-form");
+const statusEl = document.getElementById("form-status");
+const submitBtn = document.getElementById("submit-btn");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const goal = document.getElementById("goal").value.trim();
+
+  if (!name || !email) {
+    statusEl.textContent = "Please fill in your name and email.";
+    return;
+  }
+
+  submitBtn.disabled = true;
+  statusEl.textContent = "Sending...";
+
+  if (!supabase) {
+    // Supabase isn't wired up yet — this keeps the form usable locally
+    // before you've created a project. See README.md for setup steps.
+    console.log("Booking (not sent — Supabase not configured):", { name, email, goal });
+    statusEl.textContent = "Form works, but isn't connected to a database yet.";
+    submitBtn.disabled = false;
+    return;
+  }
+
+  const { error } = await supabase.from("bookings").insert([
+    { name, email, goal }
+  ]);
+
+  submitBtn.disabled = false;
+
+  if (error) {
+    console.error(error);
+    statusEl.textContent = "Something went wrong. Please try again.";
+    return;
+  }
+
+  statusEl.textContent = "Thanks! I'll email you shortly to schedule your trial.";
+  form.reset();
+});
