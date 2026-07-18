@@ -1,3 +1,7 @@
+// ---- Supabase config ----
+// Replace these with your own project's values (Project Settings -> API).
+// The anon/public key is safe to expose in client-side code — it only has
+// the permissions you grant it via Row Level Security policies.
 const SUPABASE_URL = "https://ebaclraptnatnnwiygkz.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
@@ -5,9 +9,9 @@ const isConfigured =
   SUPABASE_URL !== "https://ebaclraptnatnnwiygkz.supabase.co" &&
   SUPABASE_ANON_KEY !== "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
-let supabase = null;
+let supabaseClient = null;
 if (isConfigured && window.supabase) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
 const form = document.getElementById("booking-form");
@@ -29,7 +33,7 @@ form.addEventListener("submit", async (e) => {
   submitBtn.disabled = true;
   statusEl.textContent = "Sending...";
 
-  if (!supabase) {
+  if (!supabaseClient) {
     // Supabase isn't wired up yet — this keeps the form usable locally
     // before you've created a project. See README.md for setup steps.
     console.log("Booking (not sent — Supabase not configured):", { name, email, goal });
@@ -38,7 +42,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  const { error } = await supabase.from("bookings").insert([
+  const { error } = await supabaseClient.from("bookings").insert([
     { name, email, goal }
   ]);
 
