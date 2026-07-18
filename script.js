@@ -3,11 +3,11 @@
 // The anon/public key is safe to expose in client-side code — it only has
 // the permissions you grant it via Row Level Security policies.
 const SUPABASE_URL = "https://ebaclraptnatnnwiygkz.supabase.co/rest/v1/";
-const SUPABASE_ANON_KEY = "ebaclraptnatnnwiygkz";
+const SUPABASE_ANON_KEY = "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
 const isConfigured =
-  SUPABASE_URL !== "YOUR_SUPABASE_PROJECT_URL" &&
-  SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
+  SUPABASE_URL !== "https://ebaclraptnatnnwiygkz.supabase.co/rest/v1/" &&
+  SUPABASE_ANON_KEY !== "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
 let supabase = null;
 if (isConfigured && window.supabase) {
