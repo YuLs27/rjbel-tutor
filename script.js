@@ -2,11 +2,11 @@
 // Replace these with your own project's values (Project Settings -> API).
 // The anon/public key is safe to expose in client-side code — it only has
 // the permissions you grant it via Row Level Security policies.
-const SUPABASE_URL = "https://ebaclraptnatnnwiygkz.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://ebaclraptnatnnwiygkz.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
 const isConfigured =
-  SUPABASE_URL !== "https://ebaclraptnatnnwiygkz.supabase.co/rest/v1/" &&
+  SUPABASE_URL !== "https://ebaclraptnatnnwiygkz.supabase.co" &&
   SUPABASE_ANON_KEY !== "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
 let supabase = null;
