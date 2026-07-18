@@ -6,8 +6,8 @@ const SUPABASE_URL = "https://ebaclraptnatnnwiygkz.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
 const isConfigured =
-  SUPABASE_URL !== "YOUR_SUPABASE_PROJECT_URL" &&
-  SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
+  SUPABASE_URL !== "https://ebaclraptnatnnwiygkz.supabase.co" &&
+  SUPABASE_ANON_KEY !== "sb_publishable_UIr96-iglWyuzcbLsnn4Mg_1vk10ZG-";
 
 let supabase = null;
 if (isConfigured && window.supabase) {
